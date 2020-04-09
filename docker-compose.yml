@@ -36,27 +36,21 @@ services:
       - ${PARENT_DIR}/downloads:/downloads
     ports:
       - 7878:7878
-    command: >
-      bash -c "chown -R abc:abc /movies
-      && chown -R abc:abc /downloads"
     restart: unless-stopped
 
   sonarr:
     image: linuxserver/sonarr
     container_name: sonarr
-    volumes:
-      - ${PARENT_DIR}/sonarr/config:/config
-      - ${PARENT_DIR}/downloads:/downloads
-      - ${PARENT_DIR}/tvseries:/tv
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=${TIMEZONE}
+    volumes:
+      - ${PARENT_DIR}/sonarr/config:/config
+      - ${PARENT_DIR}/downloads:/downloads
+      - ${PARENT_DIR}/tvseries:/tv
     ports:
       - 8989:8989
-    command: >
-      bash -c "chown -R abc:abc /downloads
-      && chown -R abc:abc /tv"
     restart: always
 
   jackett:
