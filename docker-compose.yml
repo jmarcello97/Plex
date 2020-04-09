@@ -36,6 +36,9 @@ services:
       - ${PARENT_DIR}/downloads:/downloads
     ports:
       - 7878:7878
+    command: >
+      bash -c "chown -R abc:abc /movies
+      && chown -R abc:abc /downloads"
     restart: unless-stopped
 
   sonarr:
@@ -51,6 +54,9 @@ services:
       - TZ=${TIMEZONE}
     ports:
       - 8989:8989
+    command: >
+      bash -c "chown -R abc:abc /downloads
+      && chown -R abc:abc /tv"
     restart: always
 
   jackett:
