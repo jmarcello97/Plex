@@ -33,7 +33,7 @@ services:
     volumes:
       - ${PARENT_DIR}/radarr/config:/config
       - ${PARENT_DIR}/movies:/movies
-      - ${PARENT_DIR}/downloads:/data
+      - ${PARENT_DIR}/downloads/completed:/data/completed
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -47,7 +47,7 @@ services:
       - TZ=${TIMEZONE}
     volumes:
       - ${PARENT_DIR}/sonarr/config:/config
-      - ${PARENT_DIR}/downloads:/downloads
+      - ${PARENT_DIR}/downloads/completed:/data/completed
       - ${PARENT_DIR}/tvseries:/tv
     ports:
       - 8989:8989
@@ -85,7 +85,7 @@ services:
       - LOCAL_NETWORK=192.168.0.0/24
     volumes:
       - ${PARENT_DIR}/transmission/config:/config
-      - ${PARENT_DIR}/downloads:/downloads
+      - ${PARENT_DIR}/downloads:/data
     ports:
       - 9091:9091
     restart: always
