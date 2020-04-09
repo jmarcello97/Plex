@@ -17,9 +17,10 @@ services:
       - 32469:32469/udp
       - 1900:1900/udp
     volumes:
-      - ${PARENT_DIR}/plex/config:/config
-      - ${PARENT_DIR}/tvseries:/tv
-      - ${PARENT_DIR}/movies:/movies
+      - ${PARENT_DIR}:/plex
+      - ${PARENT_DIR}/plex/config:/plex/config
+      - ${PARENT_DIR}/tvseries:/plex/tv
+      - ${PARENT_DIR}/movies:/plex/movies
     restart: unless-stopped
 
   radarr:
@@ -31,9 +32,10 @@ services:
       - TZ=${TIMEZONE}
       - UMASK_SET=022 #optional
     volumes:
-      - ${PARENT_DIR}/radarr/config:/config
-      - ${PARENT_DIR}/movies:/movies
-      - ${PARENT_DIR}/downloads:/downloads
+      - ${PARENT_DIR}:/plex
+      - ${PARENT_DIR}/radarr/config:/plex/config
+      - ${PARENT_DIR}/movies:/plex/movies
+      - ${PARENT_DIR}/downloads:/plex/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -42,15 +44,16 @@ services:
     image: linuxserver/sonarr
     container_name: sonarr
     volumes:
-        - ${PARENT_DIR}/sonarr/config:/config
-        - ${PARENT_DIR}/downloads:/downloads
-        - ${PARENT_DIR}/tvseries:/tv
+      - ${PARENT_DIR}:/plex
+      - ${PARENT_DIR}/sonarr/config:/plex/config
+      - ${PARENT_DIR}/downloads:/plex/downloads
+      - ${PARENT_DIR}/tvseries:/plex/tv
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/New_York
+      - TZ=${TIMEZONE}
     ports:
-        - 8989:8989
+      - 8989:8989
     restart: always
 
   jackett:
