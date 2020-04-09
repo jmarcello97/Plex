@@ -33,7 +33,7 @@ services:
     volumes:
       - ${PARENT_DIR}/radarr/config:/config
       - ${PARENT_DIR}/movies:/movies
-      - ${PARENT_DIR}/downloads:/downloads
+      - ${PARENT_DIR}/downloads:/data
     ports:
       - 7878:7878
     restart: unless-stopped
