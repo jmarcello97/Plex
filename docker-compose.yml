@@ -87,6 +87,20 @@ services:
       - ./transmission/config:/config
       - ${PARENT_DIR}/downloads:/data
       - ./settings.json:/data/transmission-home/settings.json
+      - /media/nas/retropie/roms:/roms
     ports:
       - 9091:9091
     restart: always
+
+  tautulli:
+    image: tautulli/tautulli
+    container_name: tautulli
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    volumes:
+      - ./tautulli:/config
+      - ./plex/config/Library/Application\ Support/Plex\ Media\ Server/Logs:/plex_logs:ro
+    ports:
+      - 8181:8181
